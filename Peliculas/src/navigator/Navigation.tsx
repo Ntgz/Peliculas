@@ -2,8 +2,14 @@ import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import HomeScreen from '../screens/HomeScreen';
 import DetailScreen from '../screens/DetailScreen';
+import { Movie } from '../interfaces/movieInterfaces';
 
-const Stack = createNativeStackNavigator();
+export type RootStackParams = {
+    Home: undefined ;
+    Notifications: Movie;
+}
+
+const Stack = createNativeStackNavigator<RootStackParams>();
 
 const Navigation = () => {
     return (
