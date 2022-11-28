@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View,Button,Image,Dimensions,ScrollView,ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View,Button,Image,Dimensions,ScrollView,ActivityIndicator,TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Movie } from '../interfaces/movieInterfaces';
@@ -46,6 +46,19 @@ const DetailScreen = ( {route}: Props) =>
                             size = { 30 } color = "grey" style={{marginTop:20}}
                         />: <MovieDetails movieFull={ movieFull! } cast ={ cast }/>
                 }
+
+                <View style={styles.backButton}>
+                    <TouchableOpacity 
+                        onPress={() => navigation.pop()}
+                    >
+                        <Ionicons
+                            color="white"
+                            name= "arrow-back-outline"
+                            size={60}
+                            style={ styles.backButton }
+                        />
+                    </TouchableOpacity>
+                </View>
             
             
         </ScrollView>
@@ -93,6 +106,13 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
         borderBottomEndRadius: 25,
         borderBottomStartRadius: 25
+    },
+    backButton:{
+        position:'absolute',
+        zIndex:999,
+        elevation:9,
+        top:30,
+        left:5
     }
 
 })
