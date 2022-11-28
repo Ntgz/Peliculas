@@ -1,9 +1,12 @@
 import { useState } from 'react';
-import { StyleSheet, Text, View, Button, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, Button, ActivityIndicator, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
 import useMovies from '../hooks/useMovies';
 import MoviePoster from '../components/MoviePoster';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Carousel from 'react-native-snap-carousel';
+
+const windowWidth =Dimensions.get('window').width;
 
 const HomeScreen = () => {
 
@@ -25,9 +28,18 @@ const HomeScreen = () => {
     return (
         <View style={{marginTop: top +20}}>
 
-            <MoviePoster
-                movie={peliculasEnCine[0]}
-            />
+            <View style={{
+                height:440
+            }}> 
+                <Carousel
+                
+                    data = {peliculasEnCine}
+                    renderItem={ ({item}: any) => <MoviePoster movie={item}/>}
+                    sliderWidth={ windowWidth }
+                    itemWidth = { 300 }
+                />
+            </View>    
+
             
         </View>
     )

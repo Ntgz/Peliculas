@@ -20,8 +20,6 @@ const MoviePoster = ({ movie }:Props) => {
             height: 420,
         }}>
             <View style={styles.imageContainer}>
-                            
-            <Text>{movie.title}</Text>
             <Image
                 source={{
                     uri:uri
