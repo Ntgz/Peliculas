@@ -1,11 +1,12 @@
 import React from 'react'
-import { StyleSheet, Text, View,Button,Image,Dimensions,ScrollView } from 'react-native';
+import { StyleSheet, Text, View,Button,Image,Dimensions,ScrollView,ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Movie } from '../interfaces/movieInterfaces';
 import { RootStackParams } from '../navigator/Navigation';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import useMovieDetalis from '../hooks/useMovieDetalis';
+import MovieDetails from '../components/MovieDetails';
 
 const screenHeight = Dimensions.get('screen').height;
 
@@ -15,7 +16,9 @@ interface Props extends NativeStackScreenProps<RootStackParams, 'Notifications'>
 const DetailScreen = ( {route}: Props) => 
 {
     const movie = route.params;
-    const uri = `https://image.tmdb.org/t/p/w500${ movie.poster_path }`
+    const uri = `https://image.tmdb.org/t/p/w500${ movie.poster_path }`;
+
+    const { isLoading, cast, movieFull } = useMovieDetalis( movie.id )
 
     useMovieDetalis( movie.id)
     const navigation = useNavigation();
@@ -36,13 +39,14 @@ const DetailScreen = ( {route}: Props) =>
                 <Text style={styles.subTitle}>{movie.original_title}</Text>
                 <Text style={styles.title}>{movie.title}</Text>
             </View>
-            <View style={styles.marginContainer}>
-                <Ionicons 
-                    name="star-outline"
-                    color="grey"
-                    size={20}
-                />
-            </View>
+            
+                {
+                    isLoading
+                        ? <ActivityIndicator
+                            size = { 30 } color = "grey" style={{marginTop:20}}
+                        />: <MovieDetails movieFull={ movieFull! } cast ={ cast }/>
+                }
+            
             
         </ScrollView>
     )
